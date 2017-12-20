@@ -1,6 +1,12 @@
 import locale
 import argparse
 import string
+import logging
+
+
+logging.basicConfig(filename="format_price.log",
+                    level=logging.DEBUG,
+                    format="%(levelname)s:[%(asctime)s]:%(message)s")
 
 
 def create_parser():
@@ -12,18 +18,15 @@ def create_parser():
 
 
 def format_price(price):
-    locale.setlocale(locale.LC_ALL, 'ru_RU.utf8')
-
     set_price = set(price)
-    punctuation = set(string.punctuation) - set('.')
+    punctuation = set(string.punctuation)
     letters = set(string.ascii_letters)
     whitespace = set(string.whitespace)
     for pattern in (whitespace, letters, punctuation):
-        if pattern & set_price or price.count('.') > 1:
-            return print('Invalid data type, enter int or float!')
+        if pattern & set_price:
+            return logging.debug('Invalid data type, enter int!')
             break
-    return locale.format_string("%d", float(price), grouping=True)
-
+    return '{:,}'.format(int(price)).replace(',', ' ')
 
 
 if __name__ == '__main__':

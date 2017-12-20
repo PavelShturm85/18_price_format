@@ -11,13 +11,13 @@ class PriceIntTest(unittest.TestCase):
 
     def test_begin_one_dot(self):
         test_value = str('.111')
-        expected = str(0)
+        expected = None
         number = format_price(test_value)
         self.assertEqual(expected, number)
 
     def test_end_one_dot(self):
         test_value = str('111.')
-        expected = str(111)
+        expected = None
         number = format_price(test_value)
         self.assertEqual(expected, number)
 
@@ -29,7 +29,7 @@ class PriceIntTest(unittest.TestCase):
 
     def test_one_dot_one_number(self):
         test_value = str('111.2')
-        expected = str(111)
+        expected = None
         number = format_price(test_value)
         self.assertEqual(expected, number)
 
